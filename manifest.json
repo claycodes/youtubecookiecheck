@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Cookie Check",
+  "version": "0.0.2",
+  "author": "Clay Smith",
+  "short_name": "YouTube Cookie Check",
+  "homepage_url": "http://google.com",
+ 
+  "default_locale": "en",
+  "description": "A plain text description",
+  "icons": {
+    "19": "images/19.png",
+    "38": "images/38.png",
+    "64": "images/64.png",
+    "128": "images/128.png"
+  },
+  "permissions": [
+    "cookies",
+    "webNavigation",
+    "tabs",
+    "browsingData"
+  ],
+  "host_permissions": [
+    "*://*.youtube.com/*"
+  ],
+  
+  "background": {
+    "service_worker":"background.js"
+  },
+  "content_scripts": [{
+    "run_at":"document_start",
+    "matches": [
+        "*://*.youtube.com/*"
+    ],
+    "exclude_matches":[],
+    "js": ["js/jquery.js","contentscript.js" ]
+  }]
+}
+
