@@ -22,3 +22,25 @@ SOFTWARE.
  
  Youtube Cookie check is an extension which can be used to force Youtube Login and Cookie clearance for those looking to block Youtube for under 18 restricted users. 
  This extension can be packaged through the chrome developer tools and hosted. Once hosted it can be forced through the Google Admin Console policies. 
+
+Extensions can be hosted through a webserver fora more private delivery. 
+Custom hosted extensions need to be locally packaged using the Chrome Browser developer mode at chrome://extensions
+A crx file will be generated with an associated PEM file for encryption. The PEM file is not for hosting but should be kept securly in order to repackage the extension and not force an ID change. 
+Once packaged the crx id needs to be surfaced. You can use https://crx-checker.appspot.com/ to identify information such as the extension ID for use in the xml. 
+An xml file called updates.xml must be created and hosted along with the crx file in the same folder.
+
+The xml will contain the following. Where {Your Extention ID} is replaced by the id of your extension found from https://crx-checker.appspot.com/ and {Full https path to the crx} is replaced by the full https path to access the crx and {Extension Version from manifest} is the extension version from the maniest.json When repacjkagin and update the change in this version in the xml triggers the update of the extension. The extension version in the manifest must match.
+
+```
+<?xml version='1.0' encoding='UTF-8'?>
+<gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
+  <app appid='{Your Extention ID}'>
+    <updatecheck codebase='{Full https path to the crx}' version='{Extension Version from manifest}' />
+  </app>
+</gupdate>
+```
+
+The crx id and the updates.xml url can be used with the admin console for deployment.
+On update of the extensioon and advancement of the version the crx needs to be repackaged and the xml updated and the files pushed back up to hosting. 
+
+I prefer to host using Firebase Hosting. I can have one host an a number of extensions in one place to manage for delivery. 
