@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 chrome.webNavigation.onCompleted.addListener(function () {
-    clearData()
+    clearCookies()
 }, { url: [{ urlMatches: 'https://www.youtube.com' }] });
 
 async function cookiecheck() {
@@ -91,4 +91,13 @@ function clearData() {
     });
 
 
+}
+
+function clearCookies() {
+  chrome.cookies.remove({ url: 'https://*.youtube.com', name: '__Secure-3PAPISID' }, function(){
+    console.log('__Secure-3PAPISID cookie removed')
+  })
+  chrome.cookies.remove({ url: 'https://*.youtube.com', name: '__Secure-1PAPISID' }, function(){
+    console.log('__Secure-1PAPISID cookie removed')
+  })
 }
