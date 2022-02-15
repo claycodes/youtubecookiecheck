@@ -22,7 +22,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 chrome.webNavigation.onCompleted.addListener(function () {
-    clearData()
+    console.log('listen')
+    try {
+        chrome.storage.managed.get('youtube-only', function (data) {
+            console.log('data', data, data['youtube-only'])
+            if(data['youtube-only']){
+                clearCookies()
+            }else{
+                clearData()
+            }
+        })
+    } catch (e) {
+        clearData()
+    }
+
 }, { url: [{ urlMatches: 'https://www.youtube.com' }] });
 
 async function cookiecheck() {
@@ -68,24 +81,19 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 }
 );
 
+function clearCookies() {
+    chrome.cookies.getAll({ domain: "youtube.com" }, function (cookies) {
+        for (var i = 0; i < cookies.length; i++) {
+            chrome.cookies.remove({ url: "https://*.youtube.com" + cookies[i].path, name: cookies[i].name });
+        }
+    });
+}
 
 function clearData() {
     chrome.browsingData.remove({
         "since": 0,
     }, {
-        // "appcache": true,
-        // "cache": true,
-        // "cacheStorage": true,
         "cookies": true,
-        // "downloads": true, //forbidden with origin
-        // "fileSystems": true,
-        // "formData": true,//forbidden with origin
-        // "history": true, //forbidden with origin
-        // "indexedDB": true,
-        // "localStorage": true,
-        // "passwords": true, //forbidden with origin
-        // "serviceWorkers": true,
-        // "webSQL": true
     }, function () {
         console.log('Cookies removed')
     });

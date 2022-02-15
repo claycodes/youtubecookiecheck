@@ -1,0 +1,10 @@
+{
+    "type": "object",
+    "properties": {
+      "youtube-only": {
+        "title": "YouTube Only",
+        "description": "Clear only YouTube Cookies",
+        "type": "boolean"
+      }
+    }
+}

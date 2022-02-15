@@ -44,3 +44,9 @@ The crx id and the updates.xml url can be used with the admin console for deploy
 On update of the extensioon and advancement of the version the crx needs to be repackaged and the xml updated and the files pushed back up to hosting. 
 
 I prefer to host using Firebase Hosting. I can have one host an a number of extensions in one place to manage for delivery. 
+
+**Added managed extension JSON object to clear only youtube cookies: 
+JSON object can be place when setting the extension. 
+```
+{ "youtube-only" : {"Value" : true}}
+```

@@ -37,7 +37,6 @@ const observer = new MutationObserver(callback);
 var cleared = false
 $(document).ready(function () {
     cleared = false
-    console.log('loaded')
     const target = document.body;
     observer.observe(target, config);
 });
